@@ -6,7 +6,7 @@ breach_base = 'https://haveibeenpwned.com/api/v2/breach/'
 paste_base  = 'https://haveibeenpwned.com/api/v2/pasteaccount/' #pastebin
 domain_base = 'https://haveibeenpwned.com/api/v2/breaches?domain='
 
-header = {'User-agent':'Mozilla/5.0'}
+header = {'User-Agent':'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36'}
 
 
 def simple_search(email):#Getting all breaches for an account
@@ -42,7 +42,7 @@ def paste_account(email):#pastebin email account em uso
     
     return r.content
     
-def all_branches(email):#all em uso
+def all_branches(email):#desuso. API bug?
     r = requests.get(simple_base+email,headers=header)
     print '[+] searching '+ email +' in all haveibeenpwned sources, but pastebin\n'
     
@@ -83,12 +83,12 @@ def print_logo():
 """)
 def main():
     parser = argparse.ArgumentParser(description='Check leaks of email and domain in haveibeenpwned.com')
-    parser.add_argument('-e','--email', type=str,  help='pass here a valid email',required=False)
+    parser.add_argument('-e','--email', type=str, help='pass here a valid email', required=False)
     parser.add_argument('-d','--domain',type=str, help='pass here a valid domain',required=False)
 
     args = parser.parse_args()
 
-    email = args.email
+    email  = args.email
     domain = args.domain
 
     if email:
@@ -125,6 +125,6 @@ def main():
 
 if __name__ == '__main__':
     if(len(sys.argv[1:])==0):
-    	print 'usage: devoroto.py [-h] [-e EMAIL] [-d DOMAIN]'
+    	print 'usage: devoroto.py [-h] [-e EMAIL] [-d DOMAIN.com]'
     main()
 
